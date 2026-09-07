@@ -98,7 +98,7 @@ export default function HomePage() {
         {isLoading && books.length === 0 ? (
           <div className="py-24 text-center">
             <Loader2 className="w-10 h-10 animate-spin text-[#BD7B31] mx-auto mb-4" />
-            <p className="font-serif italic text-[#63574D] text-lg">
+            <p className="text-base font-medium text-[#63574D]">
               Consultando las estanterías de Bolivia...
             </p>
           </div>
@@ -118,7 +118,7 @@ export default function HomePage() {
             <div className="w-16 h-16 rounded-full bg-[#F3ECE1] text-[#7A2633] flex items-center justify-center mx-auto mb-4">
               <BookX className="w-8 h-8 stroke-[1.5]" />
             </div>
-            <h3 className="font-serif text-xl font-bold text-[#211B17] mb-2">
+            <h3 className="text-xl font-bold text-[#211B17] mb-2">
               No encontramos ese título en esta búsqueda
             </h3>
             <p className="text-sm text-[#63574D] mb-6 font-sans">

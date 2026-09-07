@@ -71,7 +71,7 @@ export default function StoreFilters({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[#E6DED3]">
         
         {/* Conteo de resultados */}
-        <div className="text-sm text-[#63574D] font-serif">
+        <div className="text-sm text-[#63574D] font-medium">
           <span className="font-bold text-[#211B17] text-base">{totalFound}</span> {totalFound === 1 ? "libro encontrado" : "libros encontrados"}
         </div>
 

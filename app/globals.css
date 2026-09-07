@@ -52,6 +52,9 @@
   
   --color-leather: var(--accent-leather-green);
   --color-leather-light: var(--accent-leather-green-light);
+  
+  --font-sans: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {

@@ -50,15 +50,15 @@ export default function HeroSearch({
     <section className="relative pt-12 pb-14 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
       
       {/* Insignia superior editorial */}
-      <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#F3ECE1] border border-[#E6DED3] text-xs font-serif font-medium text-[#7A2633] mb-6 shadow-sm">
+      <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#F3ECE1] border border-[#E6DED3] text-xs font-medium text-[#7A2633] mb-6 shadow-sm">
         <Sparkles className="w-3.5 h-3.5 text-[#BD7B31]" />
         <span>Comparador Cultural & Editorial de Bolivia</span>
       </div>
 
-      {/* Titular literario */}
-      <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#211B17] mb-5 leading-[1.15]">
+      {/* Titular */}
+      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#211B17] mb-5 leading-[1.15]">
         Encuentra cualquier libro en las <br className="hidden sm:inline" />
-        <span className="italic font-normal text-[#7A2633] underline decoration-[#BD7B31]/40 decoration-wavy decoration-1 underline-offset-8">
+        <span className="text-[#7A2633]">
           librerías de Bolivia
         </span>
       </h1>
@@ -112,7 +112,7 @@ export default function HeroSearch({
 
       {/* Sugerencias Rápidas / Fichas Populares */}
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-[#63574D]">
-        <span className="font-serif italic font-medium mr-1 text-[#8E8276]">Búsquedas sugeridas:</span>
+        <span className="font-medium mr-1 text-[#8E8276]">Búsquedas sugeridas:</span>
         {POPULAR_SEARCHES.map((term) => (
           <button
             key={term}

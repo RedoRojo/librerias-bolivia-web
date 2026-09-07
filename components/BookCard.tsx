@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Book } from "@/lib/types";
-import { ExternalLink, BookOpen, Check, Store, Info } from "lucide-react";
+import { ExternalLink, BookOpen, Info } from "lucide-react";
 
 interface BookCardProps {
   book: Book;
@@ -19,57 +20,89 @@ export default function BookCard({ book, onSelectBook }: BookCardProps) {
   const bestOffer = sortedOffers[0];
   const hasMultipleOffers = sortedOffers.length > 1;
 
+  // Manejo robusto de imagen con fallback a OpenLibrary o tarjeta editorial
+  const cleanIsbn = book.isbn ? book.isbn.replace(/[^0-9X]/gi, "") : "";
+  const initialCover = book.cover_image_url || (cleanIsbn ? `https://covers.openlibrary.org/b/isbn/${cleanIsbn}-L.jpg` : null);
+  
+  const [imgSrc, setImgSrc] = useState<string | null>(initialCover);
+  const [imgFailed, setImgFailed] = useState(false);
+
+  const handleImageError = () => {
+    if (imgSrc && cleanIsbn && !imgSrc.includes("openlibrary.org")) {
+      setImgSrc(`https://covers.openlibrary.org/b/isbn/${cleanIsbn}-L.jpg`);
+    } else {
+      setImgFailed(true);
+    }
+  };
+
   return (
-    <article className="group flex flex-col justify-between rounded-2xl bg-[#FFFFFF] border border-[#E6DED3] hover:border-[#D5C8B8] book-shadow book-shadow-hover overflow-hidden transition-all duration-300">
+    <article className="group flex flex-col justify-between rounded-2xl bg-[#FFFFFF] border border-[#E6DED3] hover:border-[#CDBDA9] book-shadow book-shadow-hover overflow-hidden transition-all duration-300">
       
-      {/* Cabecera de la tarjeta / Portada e Información Básica */}
+      {/* Cabecera y Portada del libro */}
       <div className="p-5">
         
         {/* Fila superior: Editorial y conteo de ofertas */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[#F3ECE1] text-[#7A2633] text-xs font-serif font-medium border border-[#E6DED3]">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[#F3ECE1] text-[#7A2633] text-xs font-semibold border border-[#E6DED3] truncate max-w-[70%]">
             {book.publisher_name}
           </span>
           
           {hasMultipleOffers && (
-            <span className="text-[11px] font-sans font-medium text-[#BD7B31] bg-[#FDF8EE] px-2 py-0.5 rounded-full border border-[#F3DFC4]">
+            <span className="text-[11px] font-medium text-[#BD7B31] bg-[#FDF8EE] px-2 py-0.5 rounded-full border border-[#F3DFC4] shrink-0">
               {sortedOffers.length} librerías
             </span>
           )}
         </div>
 
-        {/* Portada del libro */}
-        <div className="relative aspect-[3/4] max-h-56 w-full rounded-xl bg-[#F6F1E9] border border-[#E6DED3] overflow-hidden mb-4 flex items-center justify-center book-spine-crease">
-          {book.cover_image_url ? (
-            <img
-              src={book.cover_image_url}
-              alt={`Portada de ${book.title}`}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
+        {/* Portada destacada del libro */}
+        <div 
+          onClick={() => onSelectBook(book)}
+          className="relative h-64 w-full rounded-xl bg-gradient-to-b from-[#FAF6EE] to-[#EFE6D9] border border-[#E6DED3]/80 p-3 mb-4 flex items-center justify-center cursor-pointer overflow-hidden transition-colors group-hover:border-[#CDBDA9]"
+          title={`Ver detalles de ${book.title}`}
+        >
+          {imgSrc && !imgFailed ? (
+            <div className="relative h-full flex items-center justify-center drop-shadow-[0_8px_14px_rgba(33,27,23,0.18)] transition-transform duration-300 group-hover:scale-[1.03]">
+              <img
+                src={imgSrc}
+                alt={`Portada de ${book.title}`}
+                onError={handleImageError}
+                className="max-h-full max-w-full object-contain rounded-[3px] border-l border-black/10"
+                loading="lazy"
+              />
+            </div>
           ) : (
-            <div className="flex flex-col items-center justify-center p-4 text-center">
-              <div className="w-12 h-12 rounded-full bg-[#EAE2D5] flex items-center justify-center text-[#7A2633] mb-2">
-                <BookOpen className="w-6 h-6 stroke-[1.5]" />
+            <div className="w-36 h-48 rounded-md bg-[#254433] text-[#FAF7F2] p-3.5 flex flex-col justify-between shadow-md border-l-4 border-[#BD7B31] text-center">
+              <div className="flex items-center justify-center pt-2">
+                <BookOpen className="w-5 h-5 text-[#FAF7F2]/60" />
               </div>
-              <span className="font-serif text-xs text-[#8E8276] italic line-clamp-2 px-2">
-                {book.title}
+              <div>
+                <p className="text-xs font-bold leading-tight line-clamp-3 mb-1 text-[#FAF7F2]">
+                  {book.title}
+                </p>
+                {book.author && (
+                  <p className="text-[10px] text-[#FAF7F2]/75 line-clamp-1">
+                    {book.author}
+                  </p>
+                )}
+              </div>
+              <span className="text-[9px] uppercase tracking-wider text-[#BD7B31] font-semibold">
+                Edición Bolivia
               </span>
             </div>
           )}
         </div>
 
-        {/* Título y Autor */}
+        {/* Título y Autor (Tipografía moderna y elegante) */}
         <h3 
           onClick={() => onSelectBook(book)}
-          className="font-serif font-bold text-lg text-[#211B17] leading-snug line-clamp-2 mb-1.5 cursor-pointer hover:text-[#7A2633] transition-colors"
+          className="font-bold text-base sm:text-[17px] text-[#211B17] leading-snug line-clamp-2 mb-1.5 cursor-pointer hover:text-[#7A2633] transition-colors"
           title={book.title}
         >
           {book.title}
         </h3>
 
         {book.author && (
-          <p className="font-serif italic text-sm text-[#63574D] line-clamp-1 mb-2">
+          <p className="text-sm font-medium text-[#63574D] line-clamp-1 mb-2">
             por {book.author}
           </p>
         )}
@@ -87,10 +120,10 @@ export default function BookCard({ book, onSelectBook }: BookCardProps) {
         
         {/* Mejor precio destacado */}
         <div className="flex items-baseline justify-between">
-          <span className="text-xs font-serif uppercase tracking-wider text-[#8E8276]">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#8E8276]">
             {hasMultipleOffers ? "Mejor precio:" : "Precio oficial:"}
           </span>
-          <span className="font-serif text-xl font-bold text-[#7A2633]">
+          <span className="text-xl font-extrabold text-[#7A2633] tracking-tight">
             {bestOffer ? `Bs. ${bestOffer.price_bob.toFixed(2)}` : "Consultar"}
           </span>
         </div>
@@ -100,10 +133,10 @@ export default function BookCard({ book, onSelectBook }: BookCardProps) {
           {sortedOffers.slice(0, 2).map((offer) => (
             <div
               key={offer.offer_id}
-              className="flex items-center justify-between text-xs py-1 px-2 rounded-lg bg-[#FFFFFF] border border-[#E6DED3]/80"
+              className="flex items-center justify-between text-xs py-1.5 px-2.5 rounded-lg bg-[#FFFFFF] border border-[#E6DED3]/80 hover:border-[#D5C8B8] transition-colors"
             >
-              <div className="flex items-center space-x-1.5 truncate pr-2">
-                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+              <div className="flex items-center space-x-2 truncate pr-2">
+                <span className={`w-2 h-2 rounded-full shrink-0 ${
                   offer.is_in_stock ? "bg-[#254433]" : "bg-[#99483B]"
                 }`} />
                 <span className="font-medium text-[#211B17] truncate">
@@ -117,7 +150,7 @@ export default function BookCard({ book, onSelectBook }: BookCardProps) {
               </div>
 
               <div className="flex items-center space-x-2 shrink-0">
-                <span className="font-mono font-medium text-[#63574D]">
+                <span className="font-semibold text-[#63574D]">
                   Bs. {offer.price_bob.toFixed(2)}
                 </span>
                 <a
@@ -137,7 +170,7 @@ export default function BookCard({ book, onSelectBook }: BookCardProps) {
             <button
               type="button"
               onClick={() => onSelectBook(book)}
-              className="w-full text-center text-[11px] font-medium text-[#BD7B31] hover:underline pt-1"
+              className="w-full text-center text-xs font-semibold text-[#BD7B31] hover:underline pt-1"
             >
               + ver {sortedOffers.length - 2} opciones más en otras tiendas
             </button>
@@ -148,7 +181,7 @@ export default function BookCard({ book, onSelectBook }: BookCardProps) {
         <button
           type="button"
           onClick={() => onSelectBook(book)}
-          className="w-full mt-1 py-2 px-3 rounded-xl bg-[#FFFFFF] hover:bg-[#F3ECE1] border border-[#E6DED3] text-[#211B17] font-medium text-xs transition-colors flex items-center justify-center space-x-1.5"
+          className="w-full mt-1 py-2.5 px-3 rounded-xl bg-[#FFFFFF] hover:bg-[#F3ECE1] border border-[#E6DED3] text-[#211B17] font-semibold text-xs transition-colors flex items-center justify-center space-x-1.5 shadow-sm"
         >
           <Info className="w-3.5 h-3.5 text-[#BD7B31]" />
           <span>Ver ficha completa & comparar</span>

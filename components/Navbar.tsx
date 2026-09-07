@@ -20,7 +20,7 @@ export default function Navbar({ totalStores = 14, totalBooks = 38 }: NavbarProp
               <BookOpen className="w-6 h-6 stroke-[1.75]" />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-2xl font-bold tracking-tight text-[#211B17] group-hover:text-[#7A2633] transition-colors">
+              <span className="text-2xl font-bold tracking-tight text-[#211B17] group-hover:text-[#7A2633] transition-colors">
                 Librerías de Bolivia
               </span>
               <span className="text-[11px] font-sans tracking-widest uppercase text-[#8E8276] -mt-1 font-medium">

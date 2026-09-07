@@ -19,7 +19,7 @@ export default function Footer({ stores }: FooterProps) {
               <div className="w-8 h-8 rounded-lg bg-[#7A2633] text-[#FAF7F2] flex items-center justify-center">
                 <BookOpen className="w-4 h-4" />
               </div>
-              <span className="font-serif text-xl font-bold text-[#211B17]">
+              <span className="text-xl font-bold text-[#211B17]">
                 Librerías de Bolivia
               </span>
             </div>
@@ -37,7 +37,7 @@ export default function Footer({ stores }: FooterProps) {
 
           {/* Columna 2: Librerías Bolivianas */}
           <div>
-            <h4 className="font-serif font-bold text-sm text-[#211B17] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-xs text-[#211B17] uppercase tracking-wider mb-4">
               Librerías Conectadas
             </h4>
             <ul className="space-y-1.5 text-xs">
@@ -58,7 +58,7 @@ export default function Footer({ stores }: FooterProps) {
 
           {/* Columna 3: Editoriales */}
           <div>
-            <h4 className="font-serif font-bold text-sm text-[#211B17] uppercase tracking-wider mb-4">
+            <h4 className="font-bold text-xs text-[#211B17] uppercase tracking-wider mb-4">
               Editoriales & Envíos
             </h4>
             <ul className="space-y-1.5 text-xs">

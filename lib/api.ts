@@ -105,12 +105,12 @@ const FALLBACK_PUBLISHERS: Publisher[] = [
 function getFallbackBooks(query?: string): BookSearchResponse {
   const books: Book[] = [
     {
-      book_id: 10,
+      book_id: 3,
       title: "El dictador elegido",
       author: "Martín Sivak",
       isbn: "9789990564284",
       publisher_name: "Plural Editores",
-      cover_image_url: "https://plural-editores.com/wp-content/uploads/2021/04/El-dictador-elegido-front.jpg",
+      cover_image_url: "https://plural-editores.com/wp-content/uploads/2026/08/Sivak-M.-El-dictador-elegido-2026-Tapa-scaled.jpg",
       synopsis: "Biografía no autorizada de Hugo Banzer Suárez. Una investigación rigurosa sobre una de las figuras más complejas y determinantes de la historia contemporánea de Bolivia.",
       best_price_bob: 140.0,
       offers_count: 2,
@@ -133,7 +133,7 @@ function getFallbackBooks(query?: string): BookSearchResponse {
           store_name: "Encantalibros",
           store_slug: "encantalibros",
           store_city: "La Paz / Envíos",
-          price_bob: 140.0,
+          price_bob: 145.0,
           is_in_stock: true,
           stock_label: "En stock",
           product_url: "https://encantalibros.com/producto/el-dictador-elegido-biografia-no-autorizada-de-hugo-banzer-suarez/"
@@ -146,7 +146,7 @@ function getFallbackBooks(query?: string): BookSearchResponse {
       author: "Isabel Allende",
       isbn: "9788466358170",
       publisher_name: "Debolsillo",
-      cover_image_url: null,
+      cover_image_url: "https://cdn.shopify.com/s/files/1/0401/3247/6973/files/la-casa-de-los-espirits-isabel-allende-book__48559.jpg?v=1736283470",
       synopsis: "La primera novela de Isabel Allende. Un clásico de las letras hispanoamericanas que narra las vivencias de la familia Trueba a lo largo de cuatro generaciones.",
       best_price_bob: 155.0,
       offers_count: 2,
@@ -177,13 +177,13 @@ function getFallbackBooks(query?: string): BookSearchResponse {
       ]
     },
     {
-      book_id: 8,
+      book_id: 1,
       title: "«En busca de una Patria»",
       author: "Marta Irurozqui Victoriano",
       isbn: "9789995418939",
       publisher_name: "Plural Editores",
-      cover_image_url: null,
-      synopsis: "Estudio sobre ciudadanía, política y rebelión en Bolivia en el siglo XIX.",
+      cover_image_url: "https://plural-editores.com/wp-content/uploads/2026/08/Langer.-En-busca-de-una-Patriajpg-scaled.jpg",
+      synopsis: "Estudio sobre ciudadanía, política y rebelión en Bolivia en el siglo XIX. Análisis de la conformación de la República de Bolivia.",
       best_price_bob: 400.0,
       offers_count: 1,
       available_in_stock: true,
@@ -207,7 +207,7 @@ function getFallbackBooks(query?: string): BookSearchResponse {
       author: "Laura Esquivel",
       isbn: "9788466358187",
       publisher_name: "Debolsillo",
-      cover_image_url: null,
+      cover_image_url: "https://cdn.shopify.com/s/files/1/0401/3247/6973/files/71vbGbBzlZL._SY522.jpg?v=1736277539",
       synopsis: "Novela de entregas mensuales con recetas, amores y remedios caseros ambientada en México.",
       best_price_bob: 81.0,
       offers_count: 1,
@@ -227,13 +227,13 @@ function getFallbackBooks(query?: string): BookSearchResponse {
       ]
     },
     {
-      book_id: 6,
+      book_id: 19,
       title: "Maus",
       author: "Art Spiegelman",
       isbn: "9788416131068",
       publisher_name: "Reservoir Books",
-      cover_image_url: null,
-      synopsis: "Obra maestra de la novela gráfica y ganadora del premio Pulitzer.",
+      cover_image_url: "https://cdn.shopify.com/s/files/1/0401/3247/6973/files/513ma97igDL._SY445_SX342.jpg?v=1736367036",
+      synopsis: "Obra maestra de la novela gráfica y ganadora del premio Pulitzer. Relata la historia de supervivencia durante el Holocausto con animales antropomórficos.",
       best_price_bob: 147.0,
       offers_count: 1,
       available_in_stock: true,
@@ -252,12 +252,12 @@ function getFallbackBooks(query?: string): BookSearchResponse {
       ]
     },
     {
-      book_id: 11,
+      book_id: 4,
       title: "La diversidad social en Zavaleta Mercado",
       author: "René Zavaleta Mercado",
       isbn: "9789995418908",
       publisher_name: "Plural Editores",
-      cover_image_url: null,
+      cover_image_url: "https://plural-editores.com/wp-content/uploads/2026/08/Antezana-L.-La-diversidad-social-en-Zavaleta-Mercado-Tapa-scaled.jpg",
       synopsis: "Compendio fundamental del pensamiento sociopolítico boliviano y la formulación de la sociedad abigarrada.",
       best_price_bob: 120.0,
       offers_count: 2,
@@ -284,6 +284,156 @@ function getFallbackBooks(query?: string): BookSearchResponse {
           is_in_stock: true,
           stock_label: "En stock",
           product_url: "https://encantalibros.com/producto/la-diversidad-social-en-zavaleta-mercado/"
+        }
+      ]
+    },
+    {
+      book_id: 29,
+      title: "Antes De Que Se Enfríe El Café",
+      author: "Toshikazu Kawaguchi",
+      isbn: "9788466352925",
+      publisher_name: "Plaza & Janés",
+      cover_image_url: "https://cdn.shopify.com/s/files/1/0401/3247/6973/files/81u08ff2I2L._SL1500.jpg?v=1736264314",
+      synopsis: "En Tokio hay una cafetería especial donde los clientes pueden viajar al pasado mientras el café se mantenga caliente.",
+      best_price_bob: 130.0,
+      offers_count: 1,
+      available_in_stock: true,
+      offers: [
+        {
+          offer_id: 10,
+          store_id: 3,
+          store_name: "Librería Kronos",
+          store_slug: "libreria-kronos",
+          store_city: "La Paz",
+          price_bob: 130.0,
+          is_in_stock: true,
+          stock_label: "En stock",
+          product_url: "https://libreriakronos.com/products/antes-de-que-se-enfrie-el-cafe"
+        }
+      ]
+    },
+    {
+      book_id: 28,
+      title: "Hasta El Próximo Café",
+      author: "Toshikazu Kawaguchi",
+      isbn: "9788466360098",
+      publisher_name: "Plaza & Janés",
+      cover_image_url: "https://cdn.shopify.com/s/files/1/0401/3247/6973/files/81b8HCQSsZL._SY522.jpg?v=1736265173",
+      synopsis: "La esperada continuación de Antes de que se enfríe el café. Nuevas historias conmovedoras sobre el tiempo y el perdón.",
+      best_price_bob: 130.0,
+      offers_count: 1,
+      available_in_stock: true,
+      offers: [
+        {
+          offer_id: 11,
+          store_id: 3,
+          store_name: "Librería Kronos",
+          store_slug: "libreria-kronos",
+          store_city: "La Paz",
+          price_bob: 130.0,
+          is_in_stock: true,
+          stock_label: "En stock",
+          product_url: "https://libreriakronos.com/products/hasta-el-proximo-cafe"
+        }
+      ]
+    },
+    {
+      book_id: 2,
+      title: "Activismo ciudadano",
+      author: "María Teresa Zegada",
+      isbn: "9789995418922",
+      publisher_name: "Plural Editores",
+      cover_image_url: "https://plural-editores.com/wp-content/uploads/2026/08/Zegada.-Activismo-ciudadano-scaled.jpg",
+      synopsis: "Movilizaciones sociales y nuevas formas de participación política en Bolivia.",
+      best_price_bob: 90.0,
+      offers_count: 1,
+      available_in_stock: true,
+      offers: [
+        {
+          offer_id: 12,
+          store_id: 2,
+          store_name: "Plural Editores",
+          store_slug: "plural-editores",
+          store_city: "La Paz",
+          price_bob: 90.0,
+          is_in_stock: true,
+          stock_label: "En stock",
+          product_url: "https://plural-editores.com/product/activismo-ciudadano/"
+        }
+      ]
+    },
+    {
+      book_id: 6,
+      title: "200 años de libertad",
+      author: "Raúl Peñaranda",
+      isbn: "9789995418854",
+      publisher_name: "Plural Editores",
+      cover_image_url: "https://plural-editores.com/wp-content/uploads/2026/07/Penaranda-R.-200-anos-de-libertad-1-scaled.jpg",
+      synopsis: "Ensayos conmemorativos del bicentenario de Bolivia y sus desafíos institucionales.",
+      best_price_bob: 130.0,
+      offers_count: 1,
+      available_in_stock: true,
+      offers: [
+        {
+          offer_id: 13,
+          store_id: 2,
+          store_name: "Plural Editores",
+          store_slug: "plural-editores",
+          store_city: "La Paz",
+          price_bob: 130.0,
+          is_in_stock: true,
+          stock_label: "En stock",
+          product_url: "https://plural-editores.com/product/200-anos-de-libertad/"
+        }
+      ]
+    },
+    {
+      book_id: 24,
+      title: "La Isla De La Mujer Dormida",
+      author: "Arturo Pérez-Reverte",
+      isbn: "9788420478050",
+      publisher_name: "Alfaguara",
+      cover_image_url: "https://cdn.shopify.com/s/files/1/0401/3247/6973/files/81N3fc5id5L._SY522.jpg?v=1736282280",
+      synopsis: "Una historia de mar, amor y espionaje en el mar Egeo durante la Guerra Civil española.",
+      best_price_bob: 160.0,
+      offers_count: 1,
+      available_in_stock: true,
+      offers: [
+        {
+          offer_id: 14,
+          store_id: 3,
+          store_name: "Librería Kronos",
+          store_slug: "libreria-kronos",
+          store_city: "La Paz",
+          price_bob: 160.0,
+          is_in_stock: true,
+          stock_label: "En stock",
+          product_url: "https://libreriakronos.com/products/la-isla-de-la-mujer-dormida"
+        }
+      ]
+    },
+    {
+      book_id: 22,
+      title: "Terapia Para Llevar",
+      author: "Ana Pérez",
+      isbn: "9788419253453",
+      publisher_name: "Montena",
+      cover_image_url: "https://cdn.shopify.com/s/files/1/0401/3247/6973/files/71qwsiVlJOL._SL1500.jpg?v=1736285735",
+      synopsis: "100 herramientas prácticas para entender tus emociones y mejorar tu salud mental día a día.",
+      best_price_bob: 115.0,
+      offers_count: 1,
+      available_in_stock: true,
+      offers: [
+        {
+          offer_id: 15,
+          store_id: 3,
+          store_name: "Librería Kronos",
+          store_slug: "libreria-kronos",
+          store_city: "La Paz",
+          price_bob: 115.0,
+          is_in_stock: true,
+          stock_label: "En stock",
+          product_url: "https://libreriakronos.com/products/terapia-para-llevar"
         }
       ]
     }
