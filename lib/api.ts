@@ -89,7 +89,8 @@ const FALLBACK_STORES: Store[] = [
   { store_id: 11, name: "Vínculos", slug: "vinculos", city: "La Paz", website_url: "https://vinculos.com.bo/", cms_type: "woocommerce", is_publisher_store: false, total_books_in_stock: 3 },
   { store_id: 12, name: "Librería D&C", slug: "libreria-dc", city: "Envíos Nacionales", website_url: "https://libreriadc.com.bo/", cms_type: "woocommerce", is_publisher_store: false, total_books_in_stock: 3 },
   { store_id: 13, name: "Librerías Don Bosco", slug: "librerias-don-bosco", city: "La Paz / Sucre", website_url: "https://www.libreriasdonbosco.com/", cms_type: "woocommerce", is_publisher_store: false, total_books_in_stock: 4 },
-  { store_id: 14, name: "Libroclik", slug: "libroclik", city: "Envíos Nacionales", website_url: "https://libroclik.com/", cms_type: "custom", is_publisher_store: false, total_books_in_stock: 2 }
+  { store_id: 14, name: "Libroclik", slug: "libroclik", city: "Envíos Nacionales", website_url: "https://libroclik.com/", cms_type: "custom", is_publisher_store: false, total_books_in_stock: 2 },
+  { store_id: 15, name: "Librería Yachaywasi", slug: "libreria-yachaywasi", city: "La Paz / Cochabamba", website_url: "https://libreriayachaywasi.com/", cms_type: "shopify", is_publisher_store: false, total_books_in_stock: 40 }
 ];
 
 const FALLBACK_PUBLISHERS: Publisher[] = [
