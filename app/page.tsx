@@ -1,69 +1,153 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect, useCallback } from "react";
+import Navbar from "@/components/Navbar";
+import HeroSearch from "@/components/HeroSearch";
+import StoreFilters from "@/components/StoreFilters";
+import BookCard from "@/components/BookCard";
+import BookModal from "@/components/BookModal";
+import Footer from "@/components/Footer";
+import { fetchBooks, fetchStores, fetchStats } from "@/lib/api";
+import { Book, Store, CatalogStats } from "@/lib/types";
+import { BookX, Loader2, Sparkles } from "lucide-react";
+
+export default function HomePage() {
+  const [query, setQuery] = useState("");
+  const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null);
+  const [inStockOnly, setInStockOnly] = useState(false);
+  const [sortBy, setSortBy] = useState("relevance");
+
+  const [books, setBooks] = useState<Book[]>([]);
+  const [totalFound, setTotalFound] = useState(0);
+  const [stores, setStores] = useState<Store[]>([]);
+  const [stats, setStats] = useState<CatalogStats | null>(null);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+
+  // Cargar tiendas y estadísticas iniciales
+  useEffect(() => {
+    async function loadMeta() {
+      const [loadedStores, loadedStats] = await Promise.all([
+        fetchStores(),
+        fetchStats()
+      ]);
+      setStores(loadedStores);
+      setStats(loadedStats);
+    }
+    loadMeta();
+  }, []);
+
+  // Cargar libros según filtros
+  const loadBooks = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const resp = await fetchBooks({
+        q: query,
+        store_id: selectedStoreId || undefined,
+        in_stock_only: inStockOnly,
+        sort: sortBy,
+        limit: 30
+      });
+      setBooks(resp.results);
+      setTotalFound(resp.total);
+    } catch (e) {
+      console.error("Error al cargar libros:", e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [query, selectedStoreId, inStockOnly, sortBy]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      loadBooks();
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [loadBooks]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="min-h-screen flex flex-col bg-[#FAF7F2]">
+      
+      {/* Barra de navegación superior */}
+      <Navbar 
+        totalStores={stats?.total_stores_covered || stores.length} 
+        totalBooks={stats?.total_books_indexed} 
+      />
+
+      {/* Hero y Buscador Central */}
+      <HeroSearch
+        initialQuery={query}
+        onSearch={(q) => setQuery(q)}
+        isLoading={isLoading}
+      />
+
+      {/* Barra de Filtros y Estantería */}
+      <StoreFilters
+        stores={stores}
+        selectedStoreId={selectedStoreId}
+        onSelectStore={(id) => setSelectedStoreId(id)}
+        inStockOnly={inStockOnly}
+        onToggleInStock={(val) => setInStockOnly(val)}
+        sortBy={sortBy}
+        onChangeSort={(val) => setSortBy(val)}
+        totalFound={totalFound}
+      />
+
+      {/* Sección del Catálogo de Libros */}
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        {isLoading && books.length === 0 ? (
+          <div className="py-24 text-center">
+            <Loader2 className="w-10 h-10 animate-spin text-[#BD7B31] mx-auto mb-4" />
+            <p className="font-serif italic text-[#63574D] text-lg">
+              Consultando las estanterías de Bolivia...
+            </p>
+          </div>
+        ) : books.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {books.map((book) => (
+              <BookCard
+                key={book.book_id}
+                book={book}
+                onSelectBook={(b) => setSelectedBook(b)}
+              />
+            ))}
+          </div>
+        ) : (
+          /* Estado sin resultados estilo biblioteca */
+          <div className="max-w-md mx-auto py-16 px-6 text-center rounded-3xl bg-[#FFFFFF] border-2 border-dashed border-[#E6DED3] my-8 shadow-sm">
+            <div className="w-16 h-16 rounded-full bg-[#F3ECE1] text-[#7A2633] flex items-center justify-center mx-auto mb-4">
+              <BookX className="w-8 h-8 stroke-[1.5]" />
+            </div>
+            <h3 className="font-serif text-xl font-bold text-[#211B17] mb-2">
+              No encontramos ese título en esta búsqueda
+            </h3>
+            <p className="text-sm text-[#63574D] mb-6 font-sans">
+              Prueba buscando por palabras clave más cortas, el apellido del autor (ej. &ldquo;Borges&rdquo;) o limpiando los filtros de tienda.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setQuery("");
+                setSelectedStoreId(null);
+                setInStockOnly(false);
+              }}
+              className="px-5 py-2.5 rounded-xl bg-[#7A2633] hover:bg-[#651D28] text-[#FAF7F2] text-xs font-medium transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+              Restablecer todos los filtros
+            </button>
+          </div>
+        )}
       </main>
+
+      {/* Modal Ficha Completa */}
+      <BookModal
+        book={selectedBook}
+        onClose={() => setSelectedBook(null)}
+      />
+
+      {/* Pie de página */}
+      <Footer stores={stores} />
+
     </div>
   );
 }

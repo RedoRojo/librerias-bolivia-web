@@ -1,26 +1,130 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Paleta "Librería de Antaño" - Tonos cálidos, nobles y orgánicos */
+  --bg-paper: #FAF7F2;
+  --bg-paper-darker: #F3ECE1;
+  --card-paper: #FFFFFF;
+  --card-parchment: #F6F1E9;
+  
+  --text-ink: #211B17;
+  --text-ink-secondary: #63574D;
+  --text-ink-faint: #8E8276;
+  
+  --border-parchment: #E6DED3;
+  --border-parchment-strong: #D5C8B8;
+  
+  --accent-brass: #BD7B31;
+  --accent-brass-hover: #A76924;
+  --accent-brass-light: #F8EEDB;
+  
+  --accent-wine: #7A2633;
+  --accent-wine-hover: #651D28;
+  --accent-wine-light: #F6E9EB;
+  
+  --accent-leather-green: #254433;
+  --accent-leather-green-light: #E9F1EC;
+  
+  --badge-out-of-stock: #99483B;
+  --badge-out-of-stock-light: #FAEFEB;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-paper: var(--bg-paper);
+  --color-paper-darker: var(--bg-paper-darker);
+  --color-card-paper: var(--card-paper);
+  --color-card-parchment: var(--card-parchment);
+  
+  --color-ink: var(--text-ink);
+  --color-ink-secondary: var(--text-ink-secondary);
+  --color-ink-faint: var(--text-ink-faint);
+  
+  --color-parchment-border: var(--border-parchment);
+  --color-parchment-border-strong: var(--border-parchment-strong);
+  
+  --color-brass: var(--accent-brass);
+  --color-brass-hover: var(--accent-brass-hover);
+  --color-brass-light: var(--accent-brass-light);
+  
+  --color-wine: var(--accent-wine);
+  --color-wine-hover: var(--accent-wine-hover);
+  --color-wine-light: var(--accent-wine-light);
+  
+  --color-leather: var(--accent-leather-green);
+  --color-leather-light: var(--accent-leather-green-light);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-paper);
+  color: var(--text-ink);
+  font-feature-settings: "kern", "liga", "clig", "calt";
+  text-rendering: optimizeLegibility;
+}
+
+/* Efecto de relieve de lomo y sombra de encuadernación */
+.book-shadow {
+  box-shadow: 
+    -3px 0 6px -1px rgba(33, 27, 23, 0.08),
+    0 10px 25px -5px rgba(33, 27, 23, 0.12),
+    0 4px 10px -2px rgba(33, 27, 23, 0.06);
+}
+
+.book-shadow-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-shadow-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    -4px 0 8px -1px rgba(33, 27, 23, 0.12),
+    0 18px 35px -8px rgba(33, 27, 23, 0.18),
+    0 6px 16px -3px rgba(33, 27, 23, 0.08);
+}
+
+/* Pliegue de lomo de libro vintage en portadas */
+.book-spine-crease {
+  position: relative;
+}
+
+.book-spine-crease::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 14px;
+  background: linear-gradient(to right, 
+    rgba(33, 27, 23, 0.25) 0%, 
+    rgba(255, 255, 255, 0.3) 30%, 
+    rgba(33, 27, 23, 0.15) 70%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Textura suave de papel verjurado */
+.paper-texture {
+  background-color: var(--bg-paper);
+  background-image: radial-gradient(rgba(33, 27, 23, 0.035) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Barra de desplazamiento clásica */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-paper-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-parchment-strong);
+  border-radius: 4px;
+  border: 2px solid var(--bg-paper-darker);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-brass);
 }
